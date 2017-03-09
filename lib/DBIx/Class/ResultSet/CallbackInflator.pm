@@ -17,7 +17,7 @@ sub inflator {
 
 =head1 NAME
 
-DBIx::Class::ResultSet::CallbackInflator - Easier way to make a quick, custom resultset inflator
+DBIx::Class::ResultSet::CallbackInflator - Easy way to use DBIx::Class::ResultClass::CallbackInflator
 
 =head1 SYNOPSIS
 
@@ -41,8 +41,13 @@ Then later when you have a resultset of that class:
     my $rs = $schema->resultset('Person')
       ->inflator(sub {
         my ($cb, $source, $data, $optional_prefetch, @args) = @_;
-        return ;
+        return $data;
       }, @args);
+
+When the resultset in C<$rs> is unrolled the callback will be run for each row returned from
+the query and you can customize the response (must be a reference).  For example you might use
+this to change or add to the existing C<$data> for a purpose that is meaningful to your
+application.
     
 =head1 DESCRIPTION
 
