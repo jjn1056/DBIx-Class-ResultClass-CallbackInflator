@@ -50,7 +50,7 @@ Lets you decide how a resultset inflates any data in rows from the database tabl
 it is pointing at (with any prefetch information included) by using a coderef
 which will in in place of 'inflate_result'.
 
-See L<DBIx::Class::ResultClass::HashRefInflator> for a commonly used example.
+This is basically sugar for L<DBIx::Class::ResultClass::CallbackInflator>
 
 =head1 METHODS
 
@@ -61,13 +61,14 @@ This component defines the following methods.
 Allows you to use a callback as a custom inflator class.  Example:
 
     $rs->inflator(sub {
-      my ($original_rs, $cb, $result_source, \%columndata, \%prefetcheddata) = @_;
+      my ($cb, $result_source, \%columndata, \%prefetcheddata, @args) = @_;
       return ...
     })->all;
 
 Should return a reference to the representation of the row that you are seeking.
 
-B<NOTE>: The last argument C<\%prefetcheddata> is optional.
+B<NOTE>: The last argument C<\%prefetcheddata> is optional.  If there isn't any the
+location in C<@_> will be undef so that any @args passed will be in expected position.
 
 B<NOTE>: The call to ->inflator returns the original resultset to allow for easy
 chaining.
