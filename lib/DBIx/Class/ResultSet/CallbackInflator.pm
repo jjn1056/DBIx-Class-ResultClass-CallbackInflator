@@ -9,8 +9,7 @@ sub inflator {
   my ($self, $callback, @args) = @_;
   my $result_instance = DBIx::Class::ResultClass::CallbackInflator
     ->new(callback=>$callback, args=>\@args);
-  $self->result_class($result_instance);
-  return $self;
+  return $self->search(+{}, +{result_class=>$result_instance});
 }
 
 1;
@@ -77,8 +76,6 @@ location in C<@_> will be undef so that any @args passed will be in expected pos
 
 B<NOTE>: The call to ->inflator returns the original resultset to allow for easy
 chaining.
-
-B<NOTE>: If you chain a ->search after ->inflator, this will cancel the inflator.
 
 =head1 AUTHOR
 

@@ -36,6 +36,11 @@ DBIx::Class::ResultClass::CallbackInflator - Easier way to make a quick, custom 
         ->resultset('Person')
         ->resultclass($result_instance);
 
+    # Alternatively
+    my $person_resultset = $schema
+        ->resultset('Person')
+        ->search(+{}, +{result_class=>$result_instance});
+
 =head1 DESCRIPTION
 
 You might wish to review L<DBIx::Class::ResultSet::CallbackInflator> which is probably
