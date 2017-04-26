@@ -25,6 +25,7 @@ ok my $rs = Schema->resultset('Person')
   ->search({},{prefetch=>'phone_rs', order_by=>{-asc => 'person_id'}})
   ->inflator(sub {
     my ($cb, $source, $data, $optional_prefetch, $id) = @_;
+    is $data->{name}, $_{name};
     ok $optional_prefetch;
     is $id, 11;
     return $data;

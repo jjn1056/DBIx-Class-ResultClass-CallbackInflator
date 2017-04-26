@@ -47,6 +47,9 @@ When the resultset in C<$rs> is unrolled the callback will be run for each row r
 the query and you can customize the response (must be a reference).  For example you might use
 this to change or add to the existing C<$data> for a purpose that is meaningful to your
 application.
+
+B<NOTE> Currently we localize C<%_> in the callback coderef to be C<%$data> to make it
+easier to do the most standard (I think) types of transformations.
     
 =head1 DESCRIPTION
 

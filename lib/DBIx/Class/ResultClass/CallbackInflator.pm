@@ -1,6 +1,6 @@
 package DBIx::Class::ResultClass::CallbackInflator;
 
-our $VERSION = '0.002';
+our $VERSION = '0.003';
 use Moo;
 
 has 'callback' => (
@@ -17,6 +17,7 @@ has 'args' => (
 sub inflate_result {
   my ($self, $result_source, $columndata, $prefetcheddata) = @_;
   my @args = ($self->callback, $result_source, $columndata, $prefetcheddata, @{$self->args});
+  local %_ = %{$columndata};
   return $self->callback->(@args);
 }
 
