@@ -1,5 +1,6 @@
 package DBIx::Class::ResultClass::CallbackInflator;
 
+our $VERSION = '0.002';
 use Moo;
 
 has 'callback' => (
